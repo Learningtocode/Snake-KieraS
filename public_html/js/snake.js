@@ -3,9 +3,10 @@
  * -------------------------------------------------------------------------
  */ 
   
- var snake;
+var snake;
 var snakeLength; 
-var snakeSize; 
+var snakeSize;  
+var snakeDirection;
  
 var food; 
   
@@ -59,7 +60,8 @@ function gameDraw() {
  function snakeInitialize() {
      snake = []; 
      snakeLength = 5; 
-     snakeSize = 20; 
+     snakeSize = 20;  
+     snakeDirection = "down";
       
      for(var index = snakeLength - 1; index >= 0; index--) {
          snake.push( {
@@ -80,7 +82,12 @@ function gameDraw() {
      var snakeHeadX = snake[0].x;  
      var snakeHeadY = snake[0].y; 
       
-     snakeHeadX++; 
+     if(snakeDirection == "down") {
+         snakeHeadY++;
+     } 
+     else {
+         snakeHeadX++; 
+     } 
       
      var  snakeTail = snake.pop(); 
      snakeTail.x = snakeHeadX; 
@@ -97,7 +104,8 @@ function foodInitialize() {
    food = {
        x: 0, 
        y: 0
-   };  
+   };   
+   setFoodPosition();
 } 
  
 function foodDraw() { 
@@ -108,5 +116,8 @@ function foodDraw() {
  
 function setFoodPosition() {
     var randomX = Math.floor(Math.random() * screenWidth); 
-    var randomY = Math.floor(Math.random() * screenHeight);
+    var randomY = Math.floor(Math.random() * screenHeight); 
+     
+    food.x = randomX; 
+    food.y = randomY;
 }
