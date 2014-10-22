@@ -37,7 +37,9 @@ function gameInitialize() {
     screenHeight = window.innerHeight; 
      
     canvas.width = screenWidth; 
-    canvas.height = screenHeight; 
+    canvas.height = screenHeight;  
+     
+    document.addEventListener("keydown",keyboardHandler);
 }
  
 function gameLoop() { 
@@ -120,4 +122,17 @@ function setFoodPosition() {
      
     food.x = randomX; 
     food.y = randomY;
-}
+} 
+  
+  /* -------------------------------------------------------------------------
+   *  Input Functions
+   *  ------------------------------------------------------------------------
+   */
+   
+function keyboardHandler(event) {
+     console.log(event); 
+      
+     if(event.keyCode == "39")  {
+         snakeDirection = "right";
+     }
+ }
