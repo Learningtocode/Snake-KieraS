@@ -89,14 +89,15 @@ function gameDraw() {
      } 
      else if(snakeDirection == "right") {
          snakeHeadX++; 
-     } 
-      
+     }  
      else if(snakeDirection == "up") {
          snakeHeadY--;
      } 
      else if(snakeDirection == "left") {
          snakeHeadX--;
-     }
+     } 
+      
+    checkFoodCollisions(snakeHeadX, snakeHeadY);
        
      var  snakeTail = snake.pop(); 
      snakeTail.x = snakeHeadX; 
@@ -150,5 +151,16 @@ function keyboardHandler(event) {
      } 
      else if(event.keycode == "38" && snakeDirection != "down") {
          snakeDirection = "up";
+     }
+ } 
+   
+/* ---------------------------------------------------------------------------
+ *  Collision Handling
+ *  --------------------------------------------------------------------------
+ */ 
+ 
+ function checkFoodCollisions() {
+     if(snakeHeadX == food.x && snakeHeadY == food.y) {
+         console.log("Food Collision");
      }
  }
