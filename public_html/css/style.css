@@ -5,4 +5,29 @@ body {
  
 #game-screen {
     display: block;
+} 
+  
+#gameOver {
+    position: absolute; 
+    visibility: hidden;
+}  
+ 
+h1, h3 {
+   font-family: 'Pacifico', cursive;  
+   color: #FFCC00;
+   text-align: center;
+}
+  
+.title {
+    font-size: 62px; 
+    margin-bottom: 0px;
+} 
+ 
+#restartButton {
+    border: 2px solid #FFCC00; 
+    border-radius: 10px;
+} 
+ 
+#restartButton:hover {
+    background-color: #4DFF4D;
 }
