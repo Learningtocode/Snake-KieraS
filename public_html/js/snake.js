@@ -19,6 +19,8 @@ var gameOverMenu;
 var restartButton; 
 var playHUD; 
 var scoreboard;
+var gameStart; 
+var playButton;
 
 /*-------------------------------------------------------------------------- 
  * Executing Game Code 
@@ -51,7 +53,8 @@ function gameInitialize() {
     centerMenuPosition(gameOverMenu); 
     
     restartButton = document.getElementById("restartButton"); 
-    restartButton.addEventListener("click", gameRestart); 
+    restartButton.addEventListener("click", gameRestart);  
+     
      
     playHUD = document.getElementById("playHUD"); 
     scoreboard = document.getElementById("scoreboard")
@@ -203,6 +206,9 @@ function checkFoodCollisions(snakeHeadX, snakeHeadY) {
 function checkWallCollisions(snakeHeadX, snakeHeadY) {
     if (snakeHeadX * snakeSize >= screenWidth || snakeHeadX * snakeSize < 0) {
         setState("GAME OVER");
+    } 
+    else if (snakeHeadY * snakeSize >= screenHeight || snakeHeadY * snakeSize < 0) {
+        setState("GAME OVER");
     }
 } 
  
@@ -250,5 +256,5 @@ function setState(state) {
   function drawScoreboard() {
       scoreboard.innerHTML = "Length: " + snakeLength;
   }
-   
+    
    

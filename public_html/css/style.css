@@ -10,8 +10,12 @@ body {
 #gameOver, #playHUD {
     position: absolute; 
     visibility: hidden;
-}  
- 
+} 
+  
+#gameStart {
+    position: absolute;
+} 
+
 h1, h2, h3 {
    font-family: 'Pacifico', cursive;  
    color: #FFCC00;
@@ -25,12 +29,12 @@ h1, h2, h3 {
    
 }
  
-#restartButton {
+#restartButton, #playButton {
     border: 2px solid #FFCC00; 
     border-radius: 10px;
 } 
  
-#restartButton:hover {
+#restartButton, #playButton:hover {
     background-color: #4DFF4D;
 } 
  
