@@ -7,14 +7,15 @@ body {
     display: block;
 } 
   
-#gameOver, #playHUD {
+#gameOver, #playHUD, #startScreen {
     position: absolute; 
     visibility: hidden;
 } 
   
-#gameStart {
-    position: absolute;
-} 
+ #gameStart {
+   position: absolute; 
+   visibility: hidden;
+ } 
 
 h1, h2, h3 {
    font-family: 'Pacifico', cursive;  
@@ -38,6 +39,12 @@ h1, h2, h3 {
     background-color: #4DFF4D;
 } 
  
-#scoreboard {
-    margin: 0px; 
+#score {
+    margin: 0px;  
+    position: absolute; 
+    font-family: 'Pacifico', cursive;  
+    color: #FFCC00; 
+    font-size: x-large; 
+    visibility: hidden;
 }
+ 

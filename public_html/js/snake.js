@@ -19,8 +19,10 @@ var gameOverMenu;
 var restartButton; 
 var playHUD; 
 var scoreboard;
-var gameStart; 
+var startScreenMenu; 
 var playButton;
+var score;
+
 
 /*-------------------------------------------------------------------------- 
  * Executing Game Code 
@@ -51,18 +53,27 @@ function gameInitialize() {
      
     gameOverMenu = document.getElementById("gameOver"); 
     centerMenuPosition(gameOverMenu); 
+     
+    
+    
     
     restartButton = document.getElementById("restartButton"); 
     restartButton.addEventListener("click", gameRestart);  
      
-     
-    playHUD = document.getElementById("playHUD"); 
-    scoreboard = document.getElementById("scoreboard")
+    playButton = document.getElementById("playButton") 
+    playButton.addEventListener("click", gameRestart)
+         
+    startScreenMenu = document.getElementById("playHUD");
+    centerMenuPosition(startScreenMenu); 
+    
+    scoreboard = document.getElementById("score");
       
-    setState("PLAY"); 
+    setState("PLAY GAME"); 
     
 }
-
+  
+// Once the game is over, it causes it to reset.   
+ 
 function gameLoop() {
     gameDraw(); 
     drawScoreboard();
@@ -72,7 +83,9 @@ function gameLoop() {
         foodDraw();
     }
 }
-
+ 
+//Function gameDraw makes the entire screen design, background and all.
+  
 function gameDraw() {
     context.fillStyle = "rgb(0, 255, 166)";
     context.fillRect(0, 0, screenWidth, screenHeight);
@@ -81,7 +94,9 @@ function gameDraw() {
  function gameRestart() {
      snakeInitialize(); 
      foodInitialize();  
-     hideMenu(gameOverMenu);
+     hideMenu(gameOverMenu); 
+     hideMenu(startScreenMenu); 
+     displayMenu(scoreboard);
      setState("PLAY"); 
  }
 
@@ -92,7 +107,7 @@ function gameDraw() {
 
 function snakeInitialize() {
     snake = [];
-    snakeLength = 3;
+    snakeLength = 1;
     snakeSize = 20;
     snakeDirection = "down";
 
@@ -103,11 +118,13 @@ function snakeInitialize() {
         });
     }
 }
-
+  
+//This function draws the snake onto the web browser.
+ 
 function snakeDraw() {
     for (var index = 0; index < snake.length; index++) {
         context.fillStyle = "white";
-        context.fillRect(snake[index].x * snakeSize, snake[index].y * snakeSize, snakeSize, snakeSize);
+        context.fillRect(snake[index].x * snakeSize, snake[index].y * snakeSize, snakeSize, snakeSize); 
     }
 }
 
@@ -149,14 +166,19 @@ function foodInitialize() {
         y: 0
     };
     setFoodPosition();
-}
+} 
+ 
+//This function creates the ddesiign of the food.
 
 function foodDraw() {
     context.fillStyle = "white";
     context.fillRect(food.x * snakeSize, food.y * snakeSize, snakeSize, snakeSize);
 
 }
-
+ 
+  
+//The function below causes the positioin of the food to be random.
+  
 function setFoodPosition() {
     var randomX = Math.floor(Math.random() * screenWidth);
     var randomY = Math.floor(Math.random() * screenHeight);
@@ -169,7 +191,9 @@ function setFoodPosition() {
  *  Input Functions
  *  ------------------------------------------------------------------------
  */
-
+ 
+ //When you click the direction arrows on the keyboard the code reacts moving the snake. 
+ 
 function keyboardHandler(event) {
 
     if (event.keyCode == "39" && snakeDirection != "left") {
@@ -191,7 +215,9 @@ function keyboardHandler(event) {
  *  Collision Handling
  *  --------------------------------------------------------------------------
  */
-
+ 
+ //This makes sure that the snake runs into the food and the food changes position when hit. 
+ 
 function checkFoodCollisions(snakeHeadX, snakeHeadY) {
     if (snakeHeadX == food.x && snakeHeadY == food.y) {
         snake.push({
@@ -202,7 +228,9 @@ function checkFoodCollisions(snakeHeadX, snakeHeadY) {
         setFoodPosition();
     }
 }
-
+ 
+ // When snake hits wall, this function makes sure the game is over and you die.
+ 
 function checkWallCollisions(snakeHeadX, snakeHeadY) {
     if (snakeHeadX * snakeSize >= screenWidth || snakeHeadX * snakeSize < 0) {
         setState("GAME OVER");
@@ -233,28 +261,37 @@ function setState(state) {
  
  function displayMenu(menu) {
     menu.style.visibility = "visible"; 
+    scoreboard.style.visibility = "visible";
  }  
   
  function hideMenu(menu) {
-     menu.style.visibility = "hidden";
+     menu.style.visibility = "hidden"; 
+     scoreboard.style.visibility = "hidden";
  }
   
+//When the game is over or it's in play game state this function makes sures the certain menu shows. 
+
  function showMenu(state) {
      if(state == "GAME OVER") {
          displayMenu(gameOverMenu);
      } 
-     else if(state == "PLAY") {
-         displayMenu(playHUD);
+     if(state == "PLAY GAME") {
+         displayMenu(startScreenMenu);  
      }
  } 
   
-  function centerMenuPosition(menu) {
+ function centerMenuPosition(menu) {
       menu.style.top = (screenHeight / 2) - (menu.offsetHeight / 2) + "px"; 
       menu.style.left = (screenWidth / 2) - (menu.offsetWidth / 2) + "px";
   }  
-   
-  function drawScoreboard() {
-      scoreboard.innerHTML = "Length: " + snakeLength;
-  }
+    
+//This shows the scoreboard on the web browers. 
+
+ function drawScoreboard() {
+      scoreboard.innerHTML = "Length: " + snakeLength; 
+  } 
+  
+ 
+ 
     
    
