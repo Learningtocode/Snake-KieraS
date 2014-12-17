@@ -11,7 +11,12 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="css/style.css">
-    <body>  
+    <body>   
+         
+        <!--SOUND EFFECT FOR GAME OVER -->
+        <audio id="effects" hidden> 
+            <source src="sound effects/Powerup.wav" type="audio/wav">  
+        </audio>   
          
         <!--THIS IS MY GAME SCREEN-->       
         <section id="playHUD">
@@ -28,7 +33,8 @@ and open the template in the editor.
         <section id="gameOver">
             <h1 class="title">GAME OVER!</h1> 
             <h3 id="restartButton">Restart</h3> 
-        </section>
+        </section> 
+      
          
         <canvas id="game-screen"></canvas>  
          

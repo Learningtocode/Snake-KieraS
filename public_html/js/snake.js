@@ -21,7 +21,8 @@ var playHUD;
 var scoreboard;
 var startScreenMenu; 
 var playButton;
-var score;
+var score; 
+
 
 
 /*-------------------------------------------------------------------------- 
@@ -54,14 +55,11 @@ function gameInitialize() {
     gameOverMenu = document.getElementById("gameOver"); 
     centerMenuPosition(gameOverMenu); 
      
-    
-    
-    
     restartButton = document.getElementById("restartButton"); 
     restartButton.addEventListener("click", gameRestart);  
      
-    playButton = document.getElementById("playButton") 
-    playButton.addEventListener("click", gameRestart)
+    playButton = document.getElementById("playButton"); 
+    playButton.addEventListener("click", gameRestart);
          
     startScreenMenu = document.getElementById("playHUD");
     centerMenuPosition(startScreenMenu); 
@@ -80,7 +78,7 @@ function gameLoop() {
     if (gameState == "PLAY") {
         snakeUpdate();
         snakeDraw();
-        foodDraw();
+        foodDraw();      
     }
 }
  
@@ -97,7 +95,7 @@ function gameDraw() {
      hideMenu(gameOverMenu); 
      hideMenu(startScreenMenu); 
      displayMenu(scoreboard);
-     setState("PLAY"); 
+     setState("PLAY");   
  }
 
 /* ---------------------------------------------------------------------------
@@ -107,23 +105,25 @@ function gameDraw() {
 
 function snakeInitialize() {
     snake = [];
-    snakeLength = 1;
+    snakeLength = 3;
     snakeSize = 20;
-    snakeDirection = "down";
-
+    snakeDirection = "down"; 
+     
     for (var index = snakeLength - 1; index >= 0; index--) {
         snake.push({
             x: index,
             y: 0
         });
-    }
+    } 
 }
   
 //This function draws the snake onto the web browser.
  
 function snakeDraw() {
     for (var index = 0; index < snake.length; index++) {
-        context.fillStyle = "white";
+        context.fillStyle = "white"; 
+        context.strokeStyle = "black"; 
+        context.strokeRect(snake[index].x * snakeSize, snake[index].y * snakeSize, snakeSize, snakeSize);
         context.fillRect(snake[index].x * snakeSize, snake[index].y * snakeSize, snakeSize, snakeSize); 
     }
 }
@@ -147,7 +147,8 @@ function snakeUpdate() {
 
     checkFoodCollisions(snakeHeadX, snakeHeadY);
     checkWallCollisions(snakeHeadX, snakeHeadY); 
-    checkSnakeCollisions(snakeHeadX, snakeHeadY);
+    checkSnakeCollisions(snakeHeadX, snakeHeadY); 
+    
 
     var snakeTail = snake.pop();
     snakeTail.x = snakeHeadX;
@@ -184,7 +185,9 @@ function setFoodPosition() {
     var randomY = Math.floor(Math.random() * screenHeight);
 
     food.x = Math.floor(randomX / snakeSize);
-    food.y = Math.floor(randomY / snakeSize);
+    food.y = Math.floor(randomY / snakeSize); 
+     
+
 }
 
 /* -------------------------------------------------------------------------
@@ -223,9 +226,10 @@ function checkFoodCollisions(snakeHeadX, snakeHeadY) {
         snake.push({
             x: 0,
             y: 0
-        });
+         });
+        playEffectSound(); 
         snakeLength++;
-        setFoodPosition();
+        setFoodPosition();    
     }
 }
  
@@ -246,7 +250,7 @@ function checkSnakeCollisions(snakeHeadX, snakeHeadY) {
            setState("GAME OVER"); 
            return;
        }
-    }
+    } 
 }
 
 /*-------------------------------------------------------------------------
@@ -291,7 +295,17 @@ function setState(state) {
       scoreboard.innerHTML = "Length: " + snakeLength; 
   } 
   
- 
- 
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+ *  Sound Effects Varibles
+ *  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+ */
     
-   
+ var Powerup = new Audio();   
+
+ 
+function playEffectSound() {
+   Powerup = document.getElementById('effects'); 
+   Powerup.currentTime = 10; 
+   Powerup.play();   
+ } 
+    
